@@ -35,8 +35,9 @@ class StringNode {
     public void setRight(StringNode pt) {
         right = pt;
     }
-} // StringNode
+} 
 
+// StringNode
 // So that a String can change. There is nothing you need to add
 // to this class
 class WrapString {
@@ -99,22 +100,33 @@ class SplayBST {
     // Return null if the string is not found 
     public StringNode search(String s) {
         WrapString temp = new WrapString(s);
-        return search(temp, root);
+        StringNode previousStr = new StringNode(root.getString());
+        boolean found = false;
+        return search(temp, root,previousStr,found);
     }
 
     // recursive search method
     // if str not in the tree strbacktracks with value of last node visited
-    public StringNode search(WrapString str, StringNode t) {
+    public StringNode search(WrapString str, StringNode t, StringNode previousStr, boolean found) {
         // base case
         if(root == null) {
-            return null;
+            found = false;;
         } else {
             if(str.string.compareTo(t.getString()) < 0) {
-                t = search(str, t.getLeft());
+                t = search(str, t.getLeft(),t,found);
             } else if (str.string.compareTo(t.getString()) > 0) {
-                t = search(str,t.getRight());
+                t = search(str,t.getRight(),t,found);
+            } else {
+                previousStr = null;
+                found = true;
             }
+        }
+        if(found) {
+            splay(t, t.getString());
             return t;
+        } else {
+            splay(previousStr, previousStr.getString());
+            return previousStr;
         }
     }
     public static StringNode rotateLeft(StringNode t) {
