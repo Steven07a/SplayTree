@@ -37,10 +37,13 @@ public class Test0 {
 		System.out.println(t);
 		t.insert("joanie");
 		System.out.println(t);
+		// t.insert("zack");
+		// System.out.println(t);
+		// t.search("fred");
+		// System.out.println(t);
 		t.insert("lynn");
 		System.out.println(t);
 		t.insert("peter");
-		System.out.println(t);
 		System.out.println(t);
 		t.insert("helen");
 		System.out.println(t);
@@ -49,37 +52,37 @@ public class Test0 {
 		System.out.println(t);
 		System.out.println();
 		System.out.println();
-		// System.out.println("search tests.");
-		// if (t.search("nichole") == null)
-		// 	System.out.println("Not in the tree.");
-		// else
-		// 	System.out.println("Found.");
-		// System.out.println(t);
-		// if (t.search("hope") == null)
-		// 	System.out.println("Not in the tree.");
-		// else
-		// 	System.out.println("Found.");
-		// System.out.println(t);
-		// if (t.search("nichole") == null)
-		// 	System.out.println("Not in the tree.");
-		// else
-		// 	System.out.println("Found.");
-		// System.out.println(t);
-		// if (t.search("larry") == null)
-		// 	System.out.println("Not in the tree.");
-		// else
-		// 	System.out.println("Found.");
-		// System.out.println(t);
-		// if (t.search("jack") == null)
-		// 	System.out.println("Not in the tree.");
-		// else
-		// 	System.out.println("Found.");
-		// System.out.println(t);
-		// if (t.search("jack") == null)
-		// 	System.out.println("Not in the tree.");
-		// else
-		// 	System.out.println("Found.");
-		// System.out.println(t);
+		System.out.println("search tests.");
+		if (t.search("nichole") == null)
+			System.out.println("Not in the tree.");
+		else
+			System.out.println("Found.");
+		System.out.println(t);
+		if (t.search("hope") == null)
+			System.out.println("Not in the tree.");
+		else
+			System.out.println("Found.");
+		System.out.println(t);
+		if (t.search("nichole") == null)
+			System.out.println("Not in the tree.");
+		else
+			System.out.println("Found.");
+		System.out.println(t);
+		if (t.search("larry") == null)
+			System.out.println("Not in the tree.");
+		else
+			System.out.println("Found.");
+		System.out.println(t);
+		if (t.search("jack") == null)
+			System.out.println("Not in the tree.");
+		else
+			System.out.println("Found.");
+		System.out.println(t);
+		if (t.search("jack") == null)
+			System.out.println("Not in the tree.");
+		else
+			System.out.println("Found.");
+		System.out.println(t);
 	}
 }
 

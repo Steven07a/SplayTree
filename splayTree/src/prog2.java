@@ -2,14 +2,14 @@
  * Author: Steven Herrera
  * Class: CS 282 
  * Meeting Time: M,W 3:30 - 4:45pm
- * Assignment #1
- * Project: MagicSquare
- * Purpose: To test three different algorithims which are meant to find a Magic Square 
- *          which is a square where all rows columns and diagnols add up to the same number.
+ * Assignment #2
+ * Project: SplayTree
+ * Purpose: SplayTree implementation. 
+ *          SplayTree is like a b tree except the most recent item inserted or searched for will always be moved to the top
  * 
  * Date turned in: 9/1/20
  * Notes: 
- * need to check situations like lr rotation and rl rotation and search.
+ * 
  */
 
 class StringNode {
@@ -101,33 +101,33 @@ class SplayBST {
     public StringNode search(String s) {
         WrapString temp = new WrapString(s);
         StringNode previousStr = new StringNode(root.getString());
-        boolean found = false;
-        return search(temp, root,previousStr,found);
+        root = search(temp, root,previousStr);
+        StringNode tempNode = null;
+        if(s.compareTo(temp.string) == 0) {
+            tempNode = root;
+        }
+        return tempNode;
     }
 
     // recursive search method
     // if str not in the tree strbacktracks with value of last node visited
-    public StringNode search(WrapString str, StringNode t, StringNode previousStr, boolean found) {
-        // base case
-        if(root == null) {
-            found = false;;
+    public StringNode search(WrapString item, StringNode currentNode, StringNode previousStr) {
+        // base case if we hit this then it means we did not find the item we were looking for now we need to set it to 
+        // the last item seen in the tree
+        if(currentNode == null) {
+            item.string = previousStr.getString();
         } else {
-            if(str.string.compareTo(t.getString()) < 0) {
-                t = search(str, t.getLeft(),t,found);
-            } else if (str.string.compareTo(t.getString()) > 0) {
-                t = search(str,t.getRight(),t,found);
+            if(currentNode.getString().compareTo(item.string) > 0) {
+                currentNode.setLeft(search(item,currentNode.getLeft(),currentNode));
+            } else if (currentNode.getString().compareTo(item.string) < 0) {
+                currentNode.setRight(search(item,currentNode.getRight(),currentNode));
             } else {
-                previousStr = null;
-                found = true;
+                previousStr =  currentNode;
             }
         }
-        if(found) {
-            splay(t, t.getString());
-            return t;
-        } else {
-            splay(previousStr, previousStr.getString());
-            return previousStr;
-        }
+
+        currentNode = splay(currentNode, item.string);
+        return currentNode;
     }
     public static StringNode rotateLeft(StringNode t) {
         StringNode tempNode = t.getRight();
@@ -214,6 +214,7 @@ class SplayBST {
         return rt;
     }
 
+    //helper function which checks if we are the grandparent of an item
     private boolean isGrandparent(StringNode rt, String item) {
         boolean grandparent = false;
         if(nodeDistance(rt, item) == 2) {
@@ -222,11 +223,11 @@ class SplayBST {
         return grandparent;
     }
 
+    //gives us the distance from the root given to a particular item
     private int nodeDistance(StringNode rt, String item) {
         int distance = 0;
         if(rt != null) {
             if(rt.getString() != item) {
-                //int num = rt.getString().compareTo(item); 
                 if(rt.getString().compareTo(item) > 0) {
                     distance = 1 + nodeDistance(rt.getLeft(), item);
                 } else {
@@ -237,6 +238,7 @@ class SplayBST {
         return distance;
     }
 
+    // helper funciton which tells us the rotations to get to an item
     private String getRotations(StringNode rt, String item) {
         String rotate = "";
         if(rt != null) {
