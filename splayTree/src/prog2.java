@@ -63,7 +63,16 @@ class SplayBST {
     // Be sure to make a copy of the entire tree   
     // Do not make two pointers point to the same tree
     public SplayBST(SplayBST t) {
+        this.root = copyBST(t.root);
+    }   
 
+    private StringNode copyBST(StringNode rt) {
+        StringNode temp = copyNode(rt);
+        if(rt != null) {  
+            temp.setLeft(copyBST(rt.getLeft()));
+            temp.setRight(copyBST(rt.getRight()));
+        }
+        return temp;
     }
 
     // like last time
@@ -76,6 +85,15 @@ class SplayBST {
     // You will also have to write the 2-parameter recursive insert method
     public void insert(String s) {
         root = insert(root,s);
+    }
+
+    private StringNode copyNode(StringNode rt) {
+        StringNode temp = null;
+        if(rt != null){
+            temp = new StringNode(rt.getString());
+        }
+        
+        return temp;
     }
 
     private StringNode insert(StringNode rt, String s) {
@@ -161,6 +179,7 @@ class SplayBST {
     public int height() {
         return height(root);
     }
+    
     private int height(StringNode rt) {
         int h = 0 , leftHeight = 0, rightHeight = 0;
         //base case
@@ -253,8 +272,34 @@ class SplayBST {
         return rotate;
     }
 
-    // // How many nodes have exactly 1 non-null children
-    // public int stickCt() {
+    // How many nodes have exactly 1 non-null children
+    public int stickCt() {
+        return stickCt(root);
+    }
 
-    // }
+    private int stickCt(StringNode rt) {
+        int count = 0;
+        if(rt != null) {
+            if(childCount(rt) == 1) {
+                count++;
+            }
+            count += stickCt(rt.getLeft()) + stickCt(rt.getRight());
+        }
+        
+        return count;
+    }
+
+    private int childCount(StringNode rt) {
+        int count = 0;
+        if(rt != null) {
+            if(rt.getLeft() != null) {
+                count++;
+            }
+            if(rt.getRight() != null) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
 }
